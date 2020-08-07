@@ -62,7 +62,7 @@
         ws.onmessage = function(data) {
             var content = data.data;
             console.log(data);
-            console.log(msg);
+            console.log(content);
             
             if(msg != null && msg.trim() != ""){
                 $("#chating").append("<p>" + content + "</p>");
