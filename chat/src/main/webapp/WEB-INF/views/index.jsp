@@ -26,7 +26,7 @@
         .chating{
             background-color: #000;
             width: 500px;
-            height: 500px;
+            height: 200px;
             overflow: auto;
         }
         .chating p{
@@ -92,7 +92,7 @@
 </script>
 <body>
     <div id="container" class="container">
-        <h1>채팅</h1>
+        <!-- <h1>채팅</h1> -->
         <div id="chating" class="chating">
         </div>
         
