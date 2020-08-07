@@ -45,6 +45,7 @@
 
 <script type="text/javascript">
     var ws;
+    var uN;
 
     function wsOpen(){
         ws = new WebSocket("ws://" + location.host + "/chating");
@@ -54,13 +55,15 @@
     function wsEvt() {
         ws.onopen = function(data){
             //소켓이 열리면 초기화 세팅하기
+            uN = $("#userName").val()
+            $("#chating").append("<p style='color:#5480ff'>" + uN + " 님이 접속 하셨습니다." + "</p>");
         }
         
         ws.onmessage = function(data) {
-        	console.log(data);
             var msg = data.data;
             if(msg != null && msg.trim() != ''){
                 $("#chating").append("<p>" + msg + "</p>");
+                $("#chating").scrollTop($("#chating")[0].scrollHeight);     //스크롤 맨 아래로 고정
             }
         }
 
@@ -84,10 +87,16 @@
     }
 
     function send() {
-        var uN = $("#userName").val();
+        uN = $("#userName").val();
         var msg = $("#chatting").val();
-        ws.send(uN+" : "+msg);
-        $('#chatting').val("");
+        
+        if (1 == ws.readyState) {
+	        ws.send(uN+" : "+msg);
+	        $('#chatting').val("");
+        } else {
+        	alert("세션이 종료 되었습니다.");
+        	wsOpen();
+        }
     }
 </script>
 <body>
