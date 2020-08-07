@@ -1,0 +1,11 @@
+spring: 
+  application: 
+    name: chat
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+
+# -- Server Port
+server: 
+  port: 9000
