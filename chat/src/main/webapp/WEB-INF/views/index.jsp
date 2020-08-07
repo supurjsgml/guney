@@ -64,7 +64,7 @@
             console.log(data);
             console.log(content);
             
-            if(msg != null && msg.trim() != ""){
+            if(content != null && content.trim() != ""){
                 $("#chating").append("<p>" + content + "</p>");
                 $("#chating").scrollTop($("#chating")[0].scrollHeight);     //스크롤 맨 아래로 고정
             }
@@ -79,6 +79,7 @@
         ws.onclose = function(e) {
             console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
             setTimeout(function() {
+            	ws = null;
             	wsOpen();
             }, 1000);
           };
