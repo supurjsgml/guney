@@ -60,9 +60,12 @@
         }
         
         ws.onmessage = function(data) {
-            var msg = data.data;
-            if(msg != null && msg.trim() != ''){
-                $("#chating").append("<p>" + msg + "</p>");
+            var content = data.data;
+            console.log(data);
+            console.log(msg);
+            
+            if(msg != null && msg.trim() != ""){
+                $("#chating").append("<p>" + content + "</p>");
                 $("#chating").scrollTop($("#chating")[0].scrollHeight);     //스크롤 맨 아래로 고정
             }
         }
@@ -72,6 +75,13 @@
                 send();
             }
         });
+        
+        ws.onclose = function(e) {
+            console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
+            setTimeout(function() {
+            	wsOpen();
+            }, 1000);
+          };
     }
 
     function chatName(){
@@ -94,7 +104,6 @@
 	        ws.send(uN+" : "+msg);
 	        $('#chatting').val("");
         } else {
-        	alert("세션이 종료 되었습니다.");
         	wsOpen();
         }
     }
