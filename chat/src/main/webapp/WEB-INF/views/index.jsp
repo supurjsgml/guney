@@ -4,6 +4,7 @@
 <html>
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 <meta charset="UTF-8">
     <title>Chating</title>
     <style>
@@ -101,11 +102,9 @@
         uN = $("#userName").val();
         var msg = $("#chatting").val();
         
-        if (1 == ws.readyState) {
+        if (1 == ws.readyState && "" != msg && null != msg) {
 	        ws.send(uN+" : "+msg);
 	        $('#chatting').val("");
-        } else {
-        	wsOpen();
         }
     }
 </script>
