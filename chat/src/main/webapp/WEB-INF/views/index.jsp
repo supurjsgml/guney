@@ -66,10 +66,11 @@
                 $("#chating").scrollTop($("#chating")[0].scrollHeight);     //스크롤 맨 아래로 고정
             }
             
-           	/* var color = "#" + Math.round(Math.random() * 0xffffff).toString(16);
-            uN = $("#userName").val();
-               
-            $("#accessId").append("<p style='color:" + color + "'>" + uN + '&nbsp;' + "</p>"); */
+           	var color = "#" + Math.round(Math.random() * 0xffffff).toString(16);
+           	var name = content.substring(0, content.indexOf(":") -1 );
+           	
+           	$("#accessId").html("<p style='color:" + color + "'>" + name + '&nbsp;' + "</p>");
+            //$("#accessId").append("<p style='color:" + color + "'>" + name + '&nbsp;' + "</p>");
             
         }
 
