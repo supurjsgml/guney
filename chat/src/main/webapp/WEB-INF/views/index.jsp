@@ -56,8 +56,10 @@
     function wsEvt() {
         ws.onopen = function(data){
             //소켓이 열리면 초기화 세팅하기
+            var color = "#" + Math.round(Math.random() * 0xffffff).toString(16);
             uN = $("#userName").val()
-            $("#chating").append("<p style='color:#5480ff'>" + uN + " 님이 접속 하셨습니다." + "</p>");
+            
+            $("#accessId").append("<p style='color:" + color + "'>" + uN + "</p>");
         }
         
         ws.onmessage = function(data) {
@@ -79,11 +81,12 @@
         
         ws.onclose = function(e) {
             console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
+           	$("#accessId").empty();
             setTimeout(function() {
             	ws = null;
             	wsOpen();
             }, 1000);
-          };
+        };
     }
 
     function chatName(){
@@ -110,6 +113,10 @@
 </script>
 <body>
     <div id="container" class="container">
+                접속 USER : 
+	    <div id="accessId">
+	    </div>
+    
         <!-- <h1>채팅</h1> -->
         <div id="chating" class="chating">
         </div>
