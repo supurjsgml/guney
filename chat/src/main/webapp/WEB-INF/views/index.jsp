@@ -47,6 +47,7 @@
 <script type="text/javascript">
     var ws;
     var uN;
+    var accessNm = true;
 
     function wsOpen(){
         ws = new WebSocket("ws://" + location.host + "/chating");
@@ -56,21 +57,24 @@
     function wsEvt() {
         ws.onopen = function(data){
             //소켓이 열리면 초기화 세팅하기
-            var color = "#" + Math.round(Math.random() * 0xffffff).toString(16);
-            uN = $("#userName").val()
-            
-            $("#accessId").append("<p style='color:" + color + "'>" + uN + "</p>");
         }
         
         ws.onmessage = function(data) {
             var content = data.data;
-            console.log(data);
-            console.log(content);
             
             if(content != null && content.trim() != ""){
                 $("#chating").append("<p>" + content + "</p>");
                 $("#chating").scrollTop($("#chating")[0].scrollHeight);     //스크롤 맨 아래로 고정
             }
+            
+            if(accessNm){
+                accessNm = false;
+            	var color = "#" + Math.round(Math.random() * 0xffffff).toString(16);
+                uN = $("#userName").val();
+                
+                $("#accessId").append("<p style='color:" + color + "'>" + uN + '&nbsp;' + "</p>");
+            }
+            
         }
 
         document.addEventListener("keypress", function(e){
@@ -82,6 +86,8 @@
         ws.onclose = function(e) {
             console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
            	$("#accessId").empty();
+           	accessNm = true;
+           	
             setTimeout(function() {
             	ws = null;
             	wsOpen();
