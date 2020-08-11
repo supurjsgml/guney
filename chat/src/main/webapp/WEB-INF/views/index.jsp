@@ -4,6 +4,7 @@
 <html>
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="/static/js/notify.js" ></script>
 
 <meta charset="UTF-8">
     <title>Chating</title>
@@ -50,6 +51,7 @@
     
     function wsOpen(){
         ws = new WebSocket("ws://" + location.host + "/chating");
+        getNotificationPermission();
         wsEvt();
     }
         
@@ -64,6 +66,7 @@
             if(content != null && content.trim() != ""){
                 $("#chating").append("<p>" + content + "</p>");
                 $("#chating").scrollTop($("#chating")[0].scrollHeight);     //스크롤 맨 아래로 고정
+                new Notification("New", {body:'message'});
                 newExcitingAlerts();
             }
             
@@ -131,6 +134,23 @@
 	        ws.send(uN+" : "+msg);
 	        $('#chatting').val("");
         }
+    }
+    
+    
+    //알림 권한 요청
+    function getNotificationPermission() {
+        // 브라우저 지원 여부 체크
+        if (!("Notification" in window)) {
+            alert("데스크톱 알림을 지원하지 않는 브라우저입니다.");
+        }
+        // 데스크탑 알림 권한 요청
+        Notification.requestPermission(function (result) {
+            // 권한 거절
+            if(result == 'denied') {
+                alert('알림을 차단하셨습니다.\n브라우저의 사이트 설정에서 변경하실 수 있습니다.');
+                return false;
+            }
+        });
     }
     
 </script>

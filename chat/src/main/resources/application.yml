@@ -5,6 +5,7 @@ spring:
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp
+    static-path-pattern: /static/**
 
 # -- Server Port
 server: 
