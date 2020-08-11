@@ -47,7 +47,7 @@
 <script type="text/javascript">
     var ws;
     var uN;
-
+    
     function wsOpen(){
         ws = new WebSocket("ws://" + location.host + "/chating");
         wsEvt();
@@ -64,6 +64,7 @@
             if(content != null && content.trim() != ""){
                 $("#chating").append("<p>" + content + "</p>");
                 $("#chating").scrollTop($("#chating")[0].scrollHeight);     //스크롤 맨 아래로 고정
+                newExcitingAlerts();
             }
             
            	var color = "#" + Math.round(Math.random() * 0xffffff).toString(16);
@@ -89,6 +90,25 @@
             	wsOpen();
             }, 1000);
         };
+        
+        newExcitingAlerts = (function () {
+            var oldTitle = document.title;
+            var msg = "New!";
+            var timeoutId;
+            var blink = function() { document.title = document.title == msg ? ' ' : msg; };
+            var clear = function() {
+                clearInterval(timeoutId);
+                document.title = oldTitle;
+                window.onmousemove = null;
+                timeoutId = null;
+            };
+            return function () {
+                if (!timeoutId) {
+                    timeoutId = setInterval(blink, 1000);
+                    window.onmousemove = clear;
+                }
+            };
+        }());
     }
 
     function chatName(){
@@ -112,6 +132,7 @@
 	        $('#chatting').val("");
         }
     }
+    
 </script>
 <body>
     <div id="container" class="container">
