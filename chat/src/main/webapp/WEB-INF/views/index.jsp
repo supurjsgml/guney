@@ -146,6 +146,8 @@
     	// 브라우저 지원 여부 체크
         if (!("Notification" in window)) {
         	$.notify("알림을 차단하셨습니다.\n브라우저의 사이트 설정에서 변경하실 수 있습니다.", "warn");
+        } else {
+        	Notification.requestPermission();
         }
     	
         // 데스크탑 알림 권한 요청
