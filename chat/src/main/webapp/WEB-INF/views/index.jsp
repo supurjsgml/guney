@@ -51,7 +51,7 @@
     
     $(function () {
     	//알람기능 권한 요청
-    	getNotificationPermission();
+    	//getNotificationPermission();
 	})
     
     function wsOpen(){
@@ -66,18 +66,21 @@
         
         ws.onmessage = function(data) {
             var content = data.data;
+            var date = new Date();
+            var currentTime = date.getMinutes.length == 1 ? date.getHours() + ":" + date.getMinutes() : date.getHours() + ":0" + date.getMinutes();
             
             if(content != null && content.trim() != ""){
                 $("#chating").append("<p>" + content + "</p>");
                 $("#chating").scrollTop($("#chating")[0].scrollHeight);     //스크롤 맨 아래로 고정
-                new Notification("New", {body:'message'});
+                
+                //new Notification("New", {body:'message'});
                 newExcitingAlerts();
             }
             
            	var color = "#" + Math.round(Math.random() * 0xffffff).toString(16);
            	var name = content.substring(0, content.indexOf(":") -1 );
            	
-           	$("#accessId").html("<p style='color:" + color + "'>" + name + '&nbsp;' + "</p>");
+           	$("#accessId").html("<p style='color:" + color + "'>" + name + '&nbsp;' + currentTime + "</p>");
             //$("#accessId").append("<p style='color:" + color + "'>" + name + '&nbsp;' + "</p>");
             
         }
@@ -90,7 +93,7 @@
         
         ws.onclose = function(e) {
             console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
-           	$("#accessId").empty();
+           	//$("#accessId").empty();
            	
             setTimeout(function() {
             	ws = null;
@@ -162,8 +165,13 @@
 </script>
 <body>
     <div id="container" class="container">
-                접속 USER : 
-	    <div id="accessId">
+	    <div>
+	       <table class="inputTable">
+                <tr>
+                    <th>접속 USER : </th>
+                    <th id="accessId"></th>
+                </tr>
+            </table>
 	    </div>
     
         <!-- <h1>채팅</h1> -->
