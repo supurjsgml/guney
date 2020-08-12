@@ -67,7 +67,7 @@
         ws.onmessage = function(data) {
             var content = data.data;
             var date = new Date();
-            var currentTime = date.getMinutes.length == 1 ? date.getHours() + ":" + date.getMinutes() : date.getHours() + ":0" + date.getMinutes();
+            var currentTime = date.getMinutes() > 9 ? date.getHours() + ":" + date.getMinutes() : date.getHours() + ":0" + date.getMinutes();
             
             if(content != null && content.trim() != ""){
                 $("#chating").append("<p>" + content + "</p>");
