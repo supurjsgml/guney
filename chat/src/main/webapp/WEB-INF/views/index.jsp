@@ -131,13 +131,14 @@
             var name = content.substring(0, content.indexOf(":") -1 );
             var p_tag = "<div style='padding:4px'><p class='speech-bubble'>";
 
+
             if(old_name == name){
               p_tag="<div style='padding:4px;text-align:right'><p class='speech-bubble'>";
             }
 
 
             if(content != null && content.trim() != ""){
-                $("#chating").append(p_tag + content + "</p></div>");
+                $("#chating").append(p_tag + content.split(":")[1] + "</p></div>");
                 $("#chating").scrollTop($("#chating")[0].scrollHeight);     //스크롤 맨 아래로 고정
 
                 //new Notification("New", {body:'message'});
