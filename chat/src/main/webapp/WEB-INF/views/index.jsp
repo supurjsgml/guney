@@ -241,14 +241,14 @@
             </table>
         </div>
 
-        <h1 class="google-font">채팅</h1>
+        <h1 class="google-font">건뎐하게</h1>
         <div id="chating" class="chating">
         </div>
 
         <div id="yourName">
             <table class="inputTable">
                 <tr>
-                    <th class="google-font">사용자명</th>
+                    <th class="google-font">이름</th>
                     <th><input type="text" name="userName" id="userName"></th>
                     <th><a href="#" onclick="chatName()" class="myButton">click</a></th>
 
