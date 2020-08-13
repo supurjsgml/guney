@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
     <title>Chating</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cute+Font&family=Do+Hyeon&family=Black+Han+Sans&&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cute+Font&family=Do+Hyeon&family=Noto+Sans+KR:wght@500&display=swap');
 
         *{
             margin:0;
@@ -42,7 +42,7 @@
             text-align: left;
         }
         .google-font {
-            font-family: 'Do Hyeon', sans-serif;
+            font-family: 'Noto Sans KR', sans-serif;
         }
         .myButton {
             box-shadow:inset 0px 1px 0px 0px #97c4fe;
@@ -82,6 +82,7 @@
 <script type="text/javascript">
     var ws;
     var uN;
+    var old_name;
 
     $(function () {
         //알람기능 권한 요청
@@ -96,15 +97,26 @@
     function wsEvt() {
         ws.onopen = function(data){
             //소켓이 열리면 초기화 세팅하기
+            old_name = $("#userName").val();
         }
 
         ws.onmessage = function(data) {
+
+
             var content = data.data;
             var date = new Date();
             var currentTime = date.getMinutes() > 9 ? date.getHours() + ":" + date.getMinutes() : date.getHours() + ":0" + date.getMinutes();
 
+            var name = content.substring(0, content.indexOf(":") -1 );
+            var p_tag = "<p>";
+
+            if(old_name == name){
+              p_tag="<p style='text-align:right; color:red'>";
+            }
+
+
             if(content != null && content.trim() != ""){
-                $("#chating").append("<p>" + content + "</p>");
+                $("#chating").append(p_tag + content + "</p>");
                 $("#chating").scrollTop($("#chating")[0].scrollHeight);     //스크롤 맨 아래로 고정
 
                 //new Notification("New", {body:'message'});
@@ -112,7 +124,6 @@
             }
 
             var color = "#" + Math.round(Math.random() * 0xffffff).toString(16);
-            var name = content.substring(0, content.indexOf(":") -1 );
 
             $("#accessId").html("<p style='color:" + color + "'>" + name + '&nbsp;' + currentTime + "</p>");
             //$("#accessId").append("<p style='color:" + color + "'>" + name + '&nbsp;' + "</p>");
