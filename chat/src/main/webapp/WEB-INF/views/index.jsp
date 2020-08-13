@@ -29,7 +29,7 @@
         }
         .chating{
             padding:15px;
-            background-color:#E0E6F8;
+            background-color:#fdedf2;
             width: 500px;
             height: 200px;
             overflow: auto;
