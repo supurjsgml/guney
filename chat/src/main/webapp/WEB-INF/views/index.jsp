@@ -28,8 +28,7 @@
             margin-bottom: 20px;
         }
         .chating{
-            padding-left:10px;
-            padding-top:10px;
+            padding:15px;
             background-color:#E0E6F8;
             width: 500px;
             height: 200px;
@@ -67,6 +66,28 @@
         .myButton:active {
             position:relative;
             top:1px;
+        }
+        .speech-bubble {
+            display:inline-block;
+            padding: 4px;
+            position: relative;
+            background: #fdfcfc;
+            border-radius: .4em;
+        }
+
+        .speech-bubble:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 0;
+            height: 0;
+            border: 2px solid transparent;
+            border-right-color: #fdfcfc;
+            border-left: 0;
+            border-bottom: 0;
+            margin-top: -1px;
+            margin-left: -2px;
         }
         input{
             margin: 10px;
@@ -108,15 +129,15 @@
             var currentTime = date.getMinutes() > 9 ? date.getHours() + ":" + date.getMinutes() : date.getHours() + ":0" + date.getMinutes();
 
             var name = content.substring(0, content.indexOf(":") -1 );
-            var p_tag = "<p>";
+            var p_tag = "<div style='padding:4px'><p class='speech-bubble'>";
 
             if(old_name == name){
-              p_tag="<p style='text-align:right; color:red'>";
+              p_tag="<div style='padding:4px;text-align:right'><p class='speech-bubble'>";
             }
 
 
             if(content != null && content.trim() != ""){
-                $("#chating").append(p_tag + content + "</p>");
+                $("#chating").append(p_tag + content + "</p></div>");
                 $("#chating").scrollTop($("#chating")[0].scrollHeight);     //스크롤 맨 아래로 고정
 
                 //new Notification("New", {body:'message'});
