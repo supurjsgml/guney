@@ -9,7 +9,14 @@
 <meta charset="UTF-8">
     <title>Chating</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cute+Font&family=Do+Hyeon&family=Noto+Sans+KR:wght@500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&family=Do+Hyeon&family=Noto+Sans+KR:wght@500&display=swap');
+
+          @font-face {
+            font-family: 'IBMPlexSansKR-Regular';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
 
         *{
             margin:0;
@@ -36,12 +43,12 @@
         }
         .chating p{
             padding-bottom: 3px;
-            font-family: 'Do Hyeon', sans-serif;
+            font-family: 'IBMPlexSansKR-Regular', sans-serif;
             color: #000;
             text-align: left;
         }
         .google-font {
-            font-family: 'Noto Sans KR', sans-serif;
+            font-family: 'Nanum Gothic', sans-serif;
         }
         .myButton {
             box-shadow:inset 0px 1px 0px 0px #97c4fe;
@@ -241,7 +248,7 @@
             </table>
         </div>
 
-        <h1 class="google-font">건뎐하게</h1>
+        <h1 class="google-font">건뎐하게❤</h1>
         <div id="chating" class="chating">
         </div>
 
