@@ -36,7 +36,7 @@
         }
         .chating{
             padding:15px;
-            background-color:#E0E6F8;
+            background-color:#E4F7BA;
             width: 500px;
             height: 200px;
             overflow: auto;
@@ -44,6 +44,7 @@
         .chating p{
             padding-bottom: 3px;
             font-family: 'IBMPlexSansKR-Regular', sans-serif;
+            font-size: small;
             color: #000;
             text-align: left;
         }
