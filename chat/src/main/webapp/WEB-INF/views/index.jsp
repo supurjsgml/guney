@@ -150,7 +150,7 @@
                 $("#chating").scrollTop($("#chating")[0].scrollHeight);     //스크롤 맨 아래로 고정
 
                 //new Notification("New", {body:'message'});
-                newExcitingAlerts();
+                //newExcitingAlerts();
             }
 
             var color = "#" + Math.round(Math.random() * 0xffffff).toString(16);
