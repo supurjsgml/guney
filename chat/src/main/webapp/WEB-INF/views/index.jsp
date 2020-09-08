@@ -176,7 +176,7 @@
             }, 1000);
         };
 
-        newExcitingAlerts = (function () {
+/*         newExcitingAlerts = (function () {
             var oldTitle = document.title;
             var msg = "New!";
             var timeoutId;
@@ -193,7 +193,7 @@
                     window.onmousemove = clear;
                 }
             };
-        }());
+        }()); */
     }
 
     function chatName(){
