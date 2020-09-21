@@ -7,7 +7,7 @@
 <script src="/static/js/notify.js" ></script>
 
 <meta charset="UTF-8">
-    <title>Chating</title>
+    <title>http://devnote.com</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&family=Do+Hyeon&family=Noto+Sans+KR:wght@500&display=swap');
 
