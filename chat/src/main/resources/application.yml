@@ -7,6 +7,18 @@ spring:
       suffix: .jsp
     static-path-pattern: /static/**
 
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/guney?serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: 1234
+    
 # -- Server Port
 server: 
   port: 9000
+  
+  
+
+mybatis: 
+  mapper-locations: classpath:mapper/**/*.xml
