@@ -10,10 +10,14 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/guney?serverTimezone=UTC&characterEncoding=UTF-8
-    username: root
-    password: 1234
+    url: jdbc:mysql://15.164.129.107:3306/service?serverTimezone=UTC&characterEncoding=UTF-8
+    username: guney
+    password: "!sotusjf0"
     
+  session:
+    jdbc:
+      initialize-schema: always
+
 # -- Server Port
 server: 
   port: 9000
