@@ -5,6 +5,6 @@
 
     <select id="selectMemberInfo" resultType="java.util.HashMap">
         SELECT A.*
-          FROM mb_member A
+          FROM MB_MEMBER A
     </select>
 </mapper>
