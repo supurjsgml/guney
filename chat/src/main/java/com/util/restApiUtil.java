@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -65,45 +66,42 @@ public class restApiUtil {
      * @param paramUrl
      * @param jsonObject void
      */
-	public String postRestCall(String paramUrl,JSONObject jsonObject){
-		String result = "";
+	@SuppressWarnings("unchecked")
+	public static List<Map<String, Object>> postRestCall(String paramUrl,JSONObject jsonObject){
+		Map<String, Object> result = null;
 		
     	try {
-            URL url = new URL(paramUrl);
-            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+    		HttpURLConnection conn = (HttpURLConnection) new URL(paramUrl).openConnection();
+    		
             conn.setConnectTimeout(TIME_OUT);
             conn.setReadTimeout(TIME_OUT);
             conn.setRequestMethod("POST");
             conn.setRequestProperty("X-Auth-Token", "API_KEY");            
             conn.setRequestProperty("X-Data-Type", "application/json");
             conn.setRequestProperty("Content-Type", "application/json");
-            conn.setDoOutput(true);		//URL 연결을 출력용으로 사용
+            conn.setDoOutput(true);		//URL 연결을 출력용으로 사용, POST 파라미터 전달을 위한 설정 (쓰기모드)
 
-            OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream(),"UTF-8");
-            osw.write(jsonObject.toString());
-            osw.flush();
-            osw.close();
+//            OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream(),"UTF-8");
+//            osw.write(jsonObject.toString());
+//            osw.flush();
+//            osw.close();
             
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
+            RestTemplate restTemplate = new RestTemplate();
+            
+            result = restTemplate.postForEntity(paramUrl, jsonObject, Map.class).getBody();
             
             if (conn.getResponseCode() != 200) {
-                log.info("Failed: HTTP error code : " + conn.getResponseCode());
             	throw new RuntimeException("Failed: HTTP error code : " + conn.getResponseCode());
             } else {
-            	log.info("API ACCESS SUCCESE");
+                log.info("API ACCESS SUCCESE DATA : " + result);
             }
             
-            while((result = br.readLine()) != null){
-                log.info(result);
-            }
-            
-            br.close();           
             conn.disconnect();
             
         } catch (IOException e) {
             log.info("RestCall Fail : " + e.getMessage());
         }
     	
-		return result;
+    	return (List<Map<String, Object>>) result.get("object");
     }
 }

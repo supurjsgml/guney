@@ -26,7 +26,7 @@ public class MemberController {
 	
 	@GetMapping("/member")
 	public List<Map<String, Object>> getSample() {
-		return restApiUtil.getRestCall("https://guney-chat-backend.herokuapp.com/member", null);
+		return restApiUtil.postRestCall("https://guney-chat-backend.herokuapp.com/member", null);
 	}
 	
 }
