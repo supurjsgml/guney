@@ -20,7 +20,7 @@ spring:
 
 # -- Server Port
 server: 
-  port: 9000
+  port: 9001
   
   #jsp 자동빌드
   servlet:
