@@ -116,8 +116,6 @@
     $(function () {
         //알람기능 권한 요청
         //getNotificationPermission();
-        
-    	heartBreaker();
     })
     
     function heartBreaker() {
@@ -216,6 +214,9 @@
             wsOpen();
             $("#yourName").hide();
             $("#yourMsg").show();
+            
+            //하트버튼 SET
+            heartBreaker();
         }
     }
 
@@ -250,6 +251,7 @@
     
     function heartBt(i) {
     	$("#chatting").val($("#chatting").val() + $("#heart").children()[i].innerText);
+    	$("#chatting").focus();
 	}
 
 </script>
