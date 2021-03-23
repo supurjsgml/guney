@@ -48,7 +48,7 @@ public class restApiUtil {
             if (conn.getResponseCode() != 200) {
             	throw new RuntimeException("Failed: HTTP error code : " + conn.getResponseCode());
             } else {
-                log.info("API ACCESS SUCCESE DATA : " + result);
+                log.info("API GET ACCESS SUCCESE DATA : " + result);
             }
             
             conn.disconnect();
@@ -60,12 +60,13 @@ public class restApiUtil {
 		return (List<Map<String, Object>>) result.get("object");
     }
     
-    /**
-     * REST API 호출 POST
-     *  
-     * @param paramUrl
-     * @param jsonObject void
-     */
+	/**
+	 * REST API 호출 POST
+	 * 
+	 * @param paramUrl
+	 * @param jsonObject
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public static List<Map<String, Object>> postRestCall(String paramUrl,JSONObject jsonObject){
 		Map<String, Object> result = null;
@@ -93,7 +94,7 @@ public class restApiUtil {
             if (conn.getResponseCode() != 200) {
             	throw new RuntimeException("Failed: HTTP error code : " + conn.getResponseCode());
             } else {
-                log.info("API ACCESS SUCCESE DATA : " + result);
+                log.info("API POST ACCESS SUCCESE DATA : " + result);
             }
             
             conn.disconnect();

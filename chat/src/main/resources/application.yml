@@ -22,7 +22,11 @@ spring:
 server: 
   port: 9000
   
-  
-
+  #jsp 자동빌드
+  servlet:
+    jsp:
+      init-parameters:
+        development: true 
+        
 mybatis: 
   mapper-locations: classpath:mapper/**/*.xml

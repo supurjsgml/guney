@@ -116,7 +116,18 @@
     $(function () {
         //알람기능 권한 요청
         //getNotificationPermission();
+        
+    	heartBreaker();
     })
+    
+    function heartBreaker() {
+    	const heartList = ['❤', '💝', '🧡', '💛'];
+    	
+    	heartList.forEach((el, idx) =>
+    	   $("heart").append("<button><span id='heart_'>" + el + "</span></button>")
+    	);
+    	
+    }
 
     function wsOpen(){
         ws = new WebSocket("ws://" + location.host + "/chating");
@@ -271,6 +282,14 @@
                     <th><a href="#" onclick="send()" class="myButton">click</a></th>
                 </tr>
             </table>
+        </div>
+        
+        <div id="heart">
+            <button><span>❤</span></button>
+            <button><span>💝</span></button>
+            <button><span>🧡</span></button>
+            <button><span>💛</span></button>
+            <!-- </td><td>노란색 하트</td><td><span class='copy btn btn-mini btn-default active'>복사</span></td></tr><tr><td class='td-img'><img class="lazy" src="//cdnjs.cloudflare.com/ajax/libs/blockly/1.0.0/media/1x1.gif" data-src='https://cdnjs.cloudflare.com/ajax/libs/twemoji/12.1.5/72x72/1f49a.png' /></td><td class="td-txt">💚</td><td>녹색 하트</td><td><span class='copy btn btn-mini btn-default active'>복사</span></td></tr><tr><td class='td-img'><img class="lazy" src="//cdnjs.cloudflare.com/ajax/libs/blockly/1.0.0/media/1x1.gif" data-src='https://cdnjs.cloudflare.com/ajax/libs/twemoji/12.1.5/72x72/1f499.png' /></td><td class="td-txt">💙</td><td>파란색 하트</td><td><span class='copy btn btn-mini btn-default active'>복사</span></td></tr><tr><td class='td-img'><img class="lazy" src="//cdnjs.cloudflare.com/ajax/libs/blockly/1.0.0/media/1x1.gif" data-src='https://cdnjs.cloudflare.com/ajax/libs/twemoji/12.1.5/72x72/1f49c.png' /></td><td class="td-txt">💜</td><td>보라색 하트</td><td><span class='copy btn btn-mini btn-default active'>복사</span></td></tr><tr><td class='td-img'><img class="lazy" src="//cdnjs.cloudflare.com/ajax/libs/blockly/1.0.0/media/1x1.gif" data-src='https://cdnjs.cloudflare.com/ajax/libs/twemoji/12.1.5/72x72/1f90e.png' /></td><td class="td-txt">🤎</td><td>갈색 하트</td><td><span class='copy btn btn-mini btn-default active'>복사</span></td></tr><tr><td class='td-img'><img class="lazy" src="//cdnjs.cloudflare.com/ajax/libs/blockly/1.0.0/media/1x1.gif" data-src='https://cdnjs.cloudflare.com/ajax/libs/twemoji/12.1.5/72x72/1f5a4.png' /></td><td class="td-txt">🖤</td><td>검정색 하트</td><td><span class='copy btn btn-mini btn-default active'>복사</span></td></tr><tr><td class='td-img'><img class="lazy" src="//cdnjs.cloudflare.com/ajax/libs/blockly/1.0.0/media/1x1.gif" data-src='https://cdnjs.cloudflare.com/ajax/libs/twemoji/12.1.5/72x72/1f90d.png' /></td><td class="td-txt">🤍</td><td>흰색 하트</td><td><span class='copy btn btn-mini btn-default active'>복사</span></td></tr><tr><td class='td-img'><img class="lazy" src="//cdnjs.cloudflare.com/ajax/libs/blockly/1.0.0/media/1x1.gif" data-src='https://cdnjs.cloudflare.com/ajax/libs/twemoji/12.1.5/72x72/1f494.png' /></td><td class="td-txt">💔</td><td>깨진 하트</td><td><span class='copy btn btn-mini btn-default active'>복사</span></td></tr><tr><td class='td-img'><img class="lazy" src="//cdnjs.cloudflare.com/ajax/libs/blockly/1.0.0/media/1x1.gif" data-src='https://cdnjs.cloudflare.com/ajax/libs/twemoji/12.1.5/72x72/2763.png' /></td><td class="td-txt">❣</td><td>하트 느낌표</td><td><span class='copy btn btn-mini btn-default active'>복사</span></td></tr><tr><td class='td-img'><img class="lazy" src="//cdnjs.cloudflare.com/ajax/libs/blockly/1.0.0/media/1x1.gif" data-src='https://cdnjs.cloudflare.com/ajax/libs/twemoji/12.1.5/72x72/1f495.png' /></td><td class="td-txt">💕</td><td>두 개의 하트</td><td><span class='copy btn btn-mini btn-default active'>복사</span></td></tr><tr><td class='td-img'><img class="lazy" src="//cdnjs.cloudflare.com/ajax/libs/blockly/1.0.0/media/1x1.gif" data-src='https://cdnjs.cloudflare.com/ajax/libs/twemoji/12.1.5/72x72/1f49e.png' /></td><td class="td-txt">💞</td><td>회전하는 하트</td><td><span class='copy btn btn-mini btn-default active'>복사</span></td></tr><tr><td class='td-img'><img class="lazy" src="//cdnjs.cloudflare.com/ajax/libs/blockly/1.0.0/media/1x1.gif" data-src='https://cdnjs.cloudflare.com/ajax/libs/twemoji/12.1.5/72x72/1f493.png' /></td><td class="td-txt">💓</td><td>두근거리는 하트</td><td><span class='copy btn btn-mini btn-default active'>복사</span></td></tr><tr><td class='td-img'><img class="lazy" src="//cdnjs.cloudflare.com/ajax/libs/blockly/1.0.0/media/1x1.gif" data-src='https://cdnjs.cloudflare.com/ajax/libs/twemoji/12.1.5/72x72/1f497.png' /></td><td class="td-txt">💗</td><td>점점 커지는 하트</td><td><span class='copy btn btn-mini btn-default active'>복사</span></td></tr><tr><td class='td-img'><img class="lazy" src="//cdnjs.cloudflare.com/ajax/libs/blockly/1.0.0/media/1x1.gif" data-src='https://cdnjs.cloudflare.com/ajax/libs/twemoji/12.1.5/72x72/1f496.png' /></td><td class="td-txt">💖</td><td>반짝이는 하트</td><td><span class='copy btn btn-mini btn-default active'>복사</span></td></tr><tr><td class='td-img'><img class="lazy" src="//cdnjs.cloudflare.com/ajax/libs/blockly/1.0.0/media/1x1.gif" data-src='https://cdnjs.cloudflare.com/ajax/libs/twemoji/12.1.5/72x72/1f498.png' /></td><td class="td-txt">💘</td><td>화살 맞은 하트</td><td><span class='copy btn btn-mini btn-default active'>복사</span></td></tr><tr><td class='td-img'><img class="lazy" src="//cdnjs.cloudflare.com/ajax/libs/blockly/1.0.0/media/1x1.gif" data-src='https://cdnjs.cloudflare.com/ajax/libs/twemoji/12.1.5/72x72/1f49d.png' /></td><td class="td-txt">💝</td><td>리본 달린 하트</td><td><span class='copy btn btn-mini btn-default active'>복사</span></td></tr><tr><td class='td-img'><img class="lazy" src="//cdnjs.cloudflare.com/ajax/libs/blockly/1.0.0/media/1x1.gif" data-src='https://cdnjs.cloudflare.com/ajax/libs/twemoji/12.1.5/72x72/1f49f.png' /></td><td class="td-txt">💟</td><td>하트 장식</td><td><span class='copy btn btn-mini btn-default active'>복사</span></td></tr><tr><td class='td-img'><img class="lazy" src="//cdnjs.cloudflare.com/ajax/libs/blockly/1.0.0/media/1x1.gif" data-src='https://cdnjs.cloudflare.com/ajax/libs/twemoji/12.1.5/72x72/262e.png' /></td><td class="td-txt">☮</td><td>평화 기호</td><td><span class='copy btn btn-mini btn-default active'>복사</span></td></tr><tr><td class='td-img'><img class="lazy" src="//cdnjs.cloudflare.com/ajax/libs/blockly/1.0.0/media/1x1.gif" data-src='https://cdnjs.cloudflare.com/ajax/libs/twemoji/12.1.5/72x72/271d.png' /></td><td class="td-txt">✝</td><td>라틴 십자가</td><td><span class='copy btn btn-mini btn-default active'>복사</span></td></tr><tr><td class='td-img'><img class="lazy" src="//cdnjs.cloudflare.com/ajax/libs/blockly/1.0.0/media/1x1.gif" data-src='https://cdnjs.cloudflare.com/ajax/libs/twemoji/12.1.5/72x72/262a.png' /></td> -->
         </div>
     </div>
 </body>
