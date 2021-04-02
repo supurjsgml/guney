@@ -164,11 +164,10 @@
             if(old_name == name){
               p_tag="<div style='padding:4px;text-align:right'><p class='speech-bubble'>";
             }
-            
-            console.log(content);
+
 
             if(content != null && content.trim() != ""){
-                $("#chating").append(p_tag + content.split(" : ")[1] + "</p></div>");
+                $("#chating").append(p_tag + content.split(":")[1] + "</p></div>");
                 $("#chating").scrollTop($("#chating")[0].scrollHeight);     //스크롤 맨 아래로 고정
 
                 //new Notification("New", {body:'message'});
@@ -236,7 +235,7 @@
     function send() {
         uN = $("#userName").val();
         var msg = $("#chatting").val();
-        
+
         if (1 == ws.readyState && "" != msg && null != msg) {
             ws.send(uN+" : "+msg);
             $('#chatting').val("");
