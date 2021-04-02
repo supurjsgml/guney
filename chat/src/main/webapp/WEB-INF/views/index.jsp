@@ -96,7 +96,7 @@
             border-bottom: 0;
             margin-top: -1px;
             margin-left: -2px;
-        }ㄴㅇㄹㄴㅇㄹㅇㄴㄹㄴㅇㄹㅇㄴㄹ
+        }
         
         input{
             margin: 10px;
