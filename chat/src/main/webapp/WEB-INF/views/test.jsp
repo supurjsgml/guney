@@ -7,6 +7,5 @@
 <title>Insert title here</title>
 </head>
 <body>sample index page <br>
-ㄴㅇㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹ
 </body>
 </html>
