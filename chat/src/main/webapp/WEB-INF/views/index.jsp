@@ -3,8 +3,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="/static/css/toastr.css" />
+<link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css'/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="/static/js/notify.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script src="/static/js/toastr.min.js"></script>
+<script src='//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js'></script>
 
 <meta charset="UTF-8">
     <title>http://devnote.com</title>
@@ -120,6 +125,33 @@
     var old_name;
 
     $(function () {
+    	toastr.options = {
+    			"closeButton": true,
+    		      "debug": false,
+    		      "newestOnTop": false,
+    		      "progressBar": false,
+    		      "positionClass": "toast-bottom-right",
+    		      "preventDuplicates": false,
+    		      "onclick": null,
+    		      "showDuration": "300",
+    		      "hideDuration": "1000",
+    		      "timeOut": "0",
+    		      "extendedTimeOut": "1000",
+    		      "showEasing": "swing",
+    		      "hideEasing": "linear",
+    		      "showMethod": "fadeIn",
+    		      "hideMethod": "fadeOut"
+    		    }   
+    	
+    	$('#show-toast1').click( function() {
+            toastr["info"]("Have fun storming the castle!", "나의 새업무")
+    	});
+       
+    	$('#show-toast2').click( function() {
+          toastr.warning("안녕하세요?", "제목", {timeOut: 5000});
+    	});
+    	
+    	
         //알람기능 권한 요청
         //getNotificationPermission();
     })
@@ -145,14 +177,16 @@
     }
 
     function wsEvt() {
+    	var nameList = new Array();
+    	var retrunNm = new Array();
+    	var eqName = "";
+    	
         ws.onopen = function(data){
             //소켓이 열리면 초기화 세팅하기
             old_name = $("#userName").val();
         }
-
+        
         ws.onmessage = function(data) {
-
-
             var content = data.data;
             var date = new Date();
             var currentTime = date.getMinutes() > 9 ? date.getHours() + ":" + date.getMinutes() : date.getHours() + ":0" + date.getMinutes();
@@ -176,8 +210,14 @@
 
             var color = "#" + Math.round(Math.random() * 0xffffff).toString(16);
 
-            $("#accessId").html("<p style='color:" + color + "'>" + name + '&nbsp;' + currentTime + "</p>");
+            nameList.push(data.data.substring(0, data.data.indexOf(" : ")));
+            retrunNm = nameList.filter((el, i) => nameList.indexOf(el) === i);
+            
+            $("#accessId").html("<p style='color:" + color + "'>" + retrunNm.toString() + '&nbsp;' + currentTime + "</p>");
             //$("#accessId").append("<p style='color:" + color + "'>" + name + '&nbsp;' + "</p>");
+            
+            onMessage();
+           
 
         }
 
@@ -188,9 +228,11 @@
         });
 
         ws.onclose = function(e) {
-            console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
-            //$("#accessId").empty();
-
+            console.log('Socket is closed. Reconnect will be attempted in 1 second.');
+            //retrunNm.splice(retrunNm.indexOf(old_name), 1);
+            
+            setName(retrunNm);
+            
             setTimeout(function() {
                 ws = null;
                 wsOpen();
@@ -265,7 +307,30 @@
     	$("#chatting").val($("#chatting").val() + $(c).children()[i].innerText);
     	$("#chatting").focus();
 	}
-
+    
+    
+    function setName(retrunNm) {
+    	$.ajax({
+            type: 'post',
+            url: '${contextPath}/setName',
+            dataType: 'json',
+            contentType: "application/json; charset=UTF-8",
+            data: JSON.stringify({
+            	userNmList : retrunNm,
+            	currentUser : $("#userName").val()
+            }),
+            success: function(data){   
+            	console.log(data);
+            	$("#accessId").html("<p style=''>" + data.toString() + "</p>");
+            },
+            error: function() {
+				
+			}
+        });
+	}
+    
+    function onMessage(){
+    };
 </script>
 <body>
     <div id="container" class="container">
@@ -309,6 +374,11 @@
         
         <div id="emoticon">
         </div>
+        
+        <button id='show-toast1'>토스트 #1</button>
+        <br>
+        <br>
+        <button id='show-toast2'>토스트 #2</button>
     </div>
 </body>
 </html>
