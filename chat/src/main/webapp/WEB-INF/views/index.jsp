@@ -3,13 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="/static/css/toastr.css" />
-<link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css'/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="/static/js/notify.js" ></script>
-<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
-<script src="/static/js/toastr.min.js"></script>
-<script src='//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js'></script>
 
 <meta charset="UTF-8">
     <title>http://devnote.com</title>
@@ -125,33 +120,6 @@
     var old_name;
 
     $(function () {
-    	toastr.options = {
-    			"closeButton": true,
-    		      "debug": false,
-    		      "newestOnTop": false,
-    		      "progressBar": false,
-    		      "positionClass": "toast-bottom-right",
-    		      "preventDuplicates": false,
-    		      "onclick": null,
-    		      "showDuration": "300",
-    		      "hideDuration": "1000",
-    		      "timeOut": "0",
-    		      "extendedTimeOut": "1000",
-    		      "showEasing": "swing",
-    		      "hideEasing": "linear",
-    		      "showMethod": "fadeIn",
-    		      "hideMethod": "fadeOut"
-    		    }   
-    	
-    	$('#show-toast1').click( function() {
-            toastr["info"]("Have fun storming the castle!", "나의 새업무")
-    	});
-       
-    	$('#show-toast2').click( function() {
-          toastr.warning("안녕하세요?", "제목", {timeOut: 5000});
-    	});
-    	
-    	
         //알람기능 권한 요청
         //getNotificationPermission();
     })
@@ -215,9 +183,6 @@
             
             $("#accessId").html("<p style='color:" + color + "'>" + retrunNm.toString() + '&nbsp;' + currentTime + "</p>");
             //$("#accessId").append("<p style='color:" + color + "'>" + name + '&nbsp;' + "</p>");
-            
-            onMessage();
-           
 
         }
 
@@ -328,9 +293,6 @@
 			}
         });
 	}
-    
-    function onMessage(){
-    };
 </script>
 <body>
     <div id="container" class="container">
@@ -374,11 +336,6 @@
         
         <div id="emoticon">
         </div>
-        
-        <button id='show-toast1'>토스트 #1</button>
-        <br>
-        <br>
-        <button id='show-toast2'>토스트 #2</button>
     </div>
 </body>
 </html>
