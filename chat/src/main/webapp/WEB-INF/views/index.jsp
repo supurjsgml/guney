@@ -158,6 +158,7 @@
         
         ws.onmessage = function(data) {
         	console.log(navigator.userAgent);
+        	$("#test").html(navigator.userAgent);
             var content = data.data;
             var date = new Date();
             var currentTime = date.getMinutes() > 9 ? date.getHours() + ":" + date.getMinutes() : date.getHours() + ":0" + date.getMinutes();
@@ -336,6 +337,11 @@
         <br>
         
         <div id="emoticon">
+        </div>
+        
+        <br>
+        
+        <div id="test">
         </div>
     </div>
 </body>
