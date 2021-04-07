@@ -152,9 +152,12 @@
         ws.onopen = function(data){
             //소켓이 열리면 초기화 세팅하기
             old_name = $("#userName").val();
+        	//console.log(data);
+        	//ws.send(old_name);
         }
         
         ws.onmessage = function(data) {
+        	console.log(navigator.userAgent);
             var content = data.data;
             var date = new Date();
             var currentTime = date.getMinutes() > 9 ? date.getHours() + ":" + date.getMinutes() : date.getHours() + ":0" + date.getMinutes();
@@ -195,9 +198,7 @@
         ws.onclose = function(e) {
             console.log('Socket is closed. Reconnect will be attempted in 1 second.');
             //retrunNm.splice(retrunNm.indexOf(old_name), 1);
-            
-            setName(retrunNm);
-            
+
             setTimeout(function() {
                 ws = null;
                 wsOpen();
