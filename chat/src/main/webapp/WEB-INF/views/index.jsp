@@ -173,6 +173,7 @@
             if("close" == sessionFlag) {
                 retrunNm.splice(retrunNm.findIndex(function(element) {return element === content.substring(0, content.indexOf(":"))}), 1);
                 $("#accessId").html(retrunNm.toString());
+                nameList = new Array();
             
             } else {
             	
@@ -181,12 +182,15 @@
             	nameList.push(content.substring(0, content.indexOf(gubun)));
                 retrunNm = nameList.filter((el, i) => nameList.indexOf(el) === i);
                 $("#accessId").html("<p style='color:" + color + "'>" + retrunNm.toString() + "</p>");
+                
+                console.log(nameList);
+                console.log(retrunNm);
             	
 				//메세지 내용 set
 	            if(content != null && content.trim() != "" && content.indexOf("open") == -1){
 	                $("#chating").append(p_tag + content.split(":")[1] + "</p></div>");
 	                $("#chating").scrollTop($("#chating")[0].scrollHeight);     //스크롤 맨 아래로 고정
-	                
+	                $("#accessId").html("<p style='color:" + color + "'>" + retrunNm.toString() + "</p>");
 	                //new Notification("New", {body:'message'});  
 	                //newExcitingAlerts();
 	            }
@@ -318,7 +322,7 @@
 	}
     
     $(document).keydown(function(event) {
-        if ( event.keyCode == 27 || event.which == 27 ) {
+        if ( event.keyCode == 27 || event.which == 27 && ws != null) {
             console.log('Socket is closed. Reconnect will be attempted in 1 second.');
             
             ws = null;
@@ -337,6 +341,8 @@
                 $("#accessId").html(retrunNm.toString());
                 
                 ws.close();
+                ws = null;
+                window.open(' ','_self').close();
             }
         }
     });
