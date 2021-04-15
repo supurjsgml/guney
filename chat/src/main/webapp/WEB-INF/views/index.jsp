@@ -321,6 +321,7 @@
         if (null != ws) {
         	setTimeout(function() {
         		ws.close();
+        		window.open(' ','_self').close();
             }, 2000);
 		}
     });
