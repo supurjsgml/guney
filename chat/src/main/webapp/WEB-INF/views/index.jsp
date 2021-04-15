@@ -317,12 +317,33 @@
         });
 	}
     
+    $(document).keydown(function(event) {
+        if ( event.keyCode == 27 || event.which == 27 ) {
+            console.log('Socket is closed. Reconnect will be attempted in 1 second.');
+            
+            ws = null;
+            ws = new WebSocket("ws://" + location.host + "/chating");
+            
+            ws.onopen = function(data){
+                //소켓이 열리면 초기화 세팅하기
+                old_name = $("#userName").val();
+                ws.send(old_name + ":close");
+            }
+            
+            ws.onmessage = function(data) {
+                var content = data.data;
+
+                retrunNm.splice(retrunNm.findIndex(function(element) {return element === old_name}), 1);
+                $("#accessId").html(retrunNm.toString());
+                
+                ws.close();
+            }
+        }
+    });
+    
     $(window).on("beforeunload", function () {
         if (null != ws) {
-        	setTimeout(function() {
-        		ws.close();
-        		window.open(' ','_self').close();
-            }, 2000);
+       		ws.close();
 		}
     });
     
