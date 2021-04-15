@@ -173,7 +173,12 @@
             if("close" == sessionFlag) {
                 retrunNm.splice(retrunNm.findIndex(function(element) {return element === content.substring(0, content.indexOf(":"))}), 1);
                 $("#accessId").html(retrunNm.toString());
-                nameList = new Array();
+                
+                if (nameList.length > 1 ) {
+                	console.log(nameList.length);
+                    nameList = new Array();
+	                nameList.push(retrunNm.toString());
+				}
             
             } else {
             	
@@ -181,19 +186,16 @@
             	
             	nameList.push(content.substring(0, content.indexOf(gubun)));
                 retrunNm = nameList.filter((el, i) => nameList.indexOf(el) === i);
-                $("#accessId").html("<p style='color:" + color + "'>" + retrunNm.toString() + "</p>");
-                
-                console.log(nameList);
-                console.log(retrunNm);
-            	
-				//메세지 내용 set
+
+                //메세지 내용 set
 	            if(content != null && content.trim() != "" && content.indexOf("open") == -1){
 	                $("#chating").append(p_tag + content.split(":")[1] + "</p></div>");
 	                $("#chating").scrollTop($("#chating")[0].scrollHeight);     //스크롤 맨 아래로 고정
-	                $("#accessId").html("<p style='color:" + color + "'>" + retrunNm.toString() + "</p>");
 	                //new Notification("New", {body:'message'});  
 	                //newExcitingAlerts();
 	            }
+                
+                $("#accessId").html("<p style='color:" + color + "'>" + retrunNm.toString() + "</p>");
 			}
             
         }
@@ -221,7 +223,6 @@
 
                 retrunNm.splice(retrunNm.findIndex(function(element) {return element === old_name}), 1);
                 $("#accessId").html(retrunNm.toString());
-                
                 ws.close();
             }
             
