@@ -118,11 +118,14 @@
     var ws;
     var uN;
     var old_name;
-
+    var nameList = new Array();
+    var retrunNm = new Array();
+    
     $(function () {
         //알람기능 권한 요청
         //getNotificationPermission();
     })
+    
     
     function heartBreaker() {
     	const heartList = ['❤', '💝', '🧡', '💛'];
@@ -145,15 +148,11 @@
     }
 
     function wsEvt() {
-    	var nameList = new Array();
-    	var retrunNm = new Array();
-    	var eqName = "";
     	
         ws.onopen = function(data){
             //소켓이 열리면 초기화 세팅하기
             old_name = $("#userName").val();
-        	//console.log(data);
-        	//ws.send(old_name);
+        	ws.send(old_name + ":" + data.type);
         }
         
         ws.onmessage = function(data) {
@@ -168,24 +167,33 @@
             if(old_name == name){
               p_tag="<div style='padding:4px;text-align:right'><p class='speech-bubble'>";
             }
-
-
-            if(content != null && content.trim() != ""){
-                $("#chating").append(p_tag + content.split(":")[1] + "</p></div>");
-                $("#chating").scrollTop($("#chating")[0].scrollHeight);     //스크롤 맨 아래로 고정
-
-                //new Notification("New", {body:'message'});
-                //newExcitingAlerts();
-            }
-
-            var color = "#" + Math.round(Math.random() * 0xffffff).toString(16);
-
-            nameList.push(data.data.substring(0, data.data.indexOf(" : ")));
-            retrunNm = nameList.filter((el, i) => nameList.indexOf(el) === i);
             
-            $("#accessId").html("<p style='color:" + color + "'>" + retrunNm.toString() + '&nbsp;' + currentTime + "</p>");
-            //$("#accessId").append("<p style='color:" + color + "'>" + name + '&nbsp;' + "</p>");
+            var sessionFlag = content.substring(content.indexOf(":") + 1);
+            
+            if("close" == sessionFlag) {
+                retrunNm.splice(retrunNm.findIndex(function(element) {return element === content.substring(0, content.indexOf(":"))}), 1);
+                $("#accessId").html(retrunNm.toString());
+            
+            } else if ("open" == sessionFlag) {
+            	//실시간 접속자 set
+                var color = "#" + Math.round(Math.random() * 0xffffff).toString(16);
 
+                nameList.push(content.substring(0, content.indexOf(":")));
+                retrunNm = nameList.filter((el, i) => nameList.indexOf(el) === i);
+                
+                $("#accessId").html("<p style='color:" + color + "'>" + retrunNm.toString() + "</p>");
+                
+			} else {
+				//메세지 내용 set
+	            if(content != null && content.trim() != ""){
+	                $("#chating").append(p_tag + content.split(":")[1] + "</p></div>");
+	                $("#chating").scrollTop($("#chating")[0].scrollHeight);     //스크롤 맨 아래로 고정
+	
+	                //new Notification("New", {body:'message'});
+	                //newExcitingAlerts();
+	            }
+			}
+            
         }
 
         document.addEventListener("keypress", function(e){
@@ -196,8 +204,32 @@
 
         ws.onclose = function(e) {
             console.log('Socket is closed. Reconnect will be attempted in 1 second.');
-            //retrunNm.splice(retrunNm.indexOf(old_name), 1);
+            
+            var obj = {};
+            
+            obj.data = old_name + ":" + e.type;
+            
+            //ws.onmessage(obj);
+            
+            ws = null;
+            ws = new WebSocket("ws://" + location.host + "/chating");
+            
+            ws.onopen = function(data){
+                //소켓이 열리면 초기화 세팅하기
+                old_name = $("#userName").val();
+                ws.send(old_name + ":close");
+            }
+            
+            ws.onmessage = function(data) {
+                var content = data.data;
 
+                retrunNm.splice(retrunNm.findIndex(function(element) {return element === old_name}), 1);
+                
+                $("#accessId").html(retrunNm.toString());
+                
+                ws.close();
+            }
+            
             setTimeout(function() {
                 ws = null;
                 wsOpen();
@@ -293,6 +325,13 @@
 			}
         });
 	}
+    
+    $(window).on("beforeunload", function () {
+        if (null != ws) {
+	    	ws.close();
+		}
+    });
+    
 </script>
 <body>
     <div id="container" class="container">
