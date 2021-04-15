@@ -319,6 +319,11 @@
     
     $(window).on("beforeunload", function () {
         if (null != ws) {
+        	setTimeout(function() {
+                ws = null;
+                wsOpen();
+            }, 2000);
+        	
 	    	ws.close();
 		}
     });
