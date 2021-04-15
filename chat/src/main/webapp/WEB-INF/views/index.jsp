@@ -169,16 +169,17 @@
             }
             
             var sessionFlag = content.substring(content.indexOf(":") + 1);
+            var findFlag = retrunNm.findIndex(function(element) {return element === content.substring(0, content.indexOf(":"))});
             
             if("close" == sessionFlag) {
-                retrunNm.splice(retrunNm.findIndex(function(element) {return element === content.substring(0, content.indexOf(":"))}), 1);
-                $("#accessId").html(retrunNm.toString());
-                
-                if (nameList.length > 1 ) {
-                	console.log(nameList.length);
-                    nameList = new Array();
-	                nameList.push(retrunNm.toString());
+                console.log(findFlag);
+            	if (nameList.length > 1 && findFlag != -1) {
+					retrunNm.splice(findFlag, 1);
+					nameList = new Array();
+                    nameList.push(retrunNm.toString());
 				}
+                
+                $("#accessId").html(retrunNm.toString());
             
             } else {
             	
@@ -226,10 +227,12 @@
                 ws.close();
             }
             
-            setTimeout(function() {
-                ws = null;
-                wsOpen();
-            }, 1000);
+            ws.onclose = function(e) {
+            	setTimeout(function() {
+                    ws = null;
+                    wsOpen();
+                }, 1000);            	
+            }
         };
 
 /*         newExcitingAlerts = (function () {
@@ -324,8 +327,6 @@
     
     $(document).keydown(function(event) {
         if ( event.keyCode == 27 || event.which == 27 && ws != null) {
-            console.log('Socket is closed. Reconnect will be attempted in 1 second.');
-            
             ws = null;
             ws = new WebSocket("ws://" + location.host + "/chating");
             
@@ -346,12 +347,6 @@
                 window.open(' ','_self').close();
             }
         }
-    });
-    
-    $(window).on("beforeunload", function () {
-        if (null != ws) {
-       		ws.close();
-		}
     });
     
 </script>
