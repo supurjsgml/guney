@@ -162,7 +162,7 @@
 
             var name = content.substring(0, content.indexOf(":") -1 );
             var p_tag = "<div style='padding:4px'><p class='speech-bubble'>";
-
+            var color = "#" + Math.round(Math.random() * 0xffffff).toString(16);
 
             if(old_name == name){
               p_tag="<div style='padding:4px;text-align:right'><p class='speech-bubble'>";
@@ -174,22 +174,20 @@
                 retrunNm.splice(retrunNm.findIndex(function(element) {return element === content.substring(0, content.indexOf(":"))}), 1);
                 $("#accessId").html(retrunNm.toString());
             
-            } else if ("open" == sessionFlag) {
-            	//실시간 접속자 set
-                var color = "#" + Math.round(Math.random() * 0xffffff).toString(16);
-
-                nameList.push(content.substring(0, content.indexOf(":")));
+            } else {
+            	
+            	var gubun = "open" === sessionFlag ? ":" : " : ";
+            	
+            	nameList.push(content.substring(0, content.indexOf(gubun)));
                 retrunNm = nameList.filter((el, i) => nameList.indexOf(el) === i);
-                
                 $("#accessId").html("<p style='color:" + color + "'>" + retrunNm.toString() + "</p>");
-                
-			} else {
+            	
 				//메세지 내용 set
-	            if(content != null && content.trim() != ""){
+	            if(content != null && content.trim() != "" && content.indexOf("open") == -1){
 	                $("#chating").append(p_tag + content.split(":")[1] + "</p></div>");
 	                $("#chating").scrollTop($("#chating")[0].scrollHeight);     //스크롤 맨 아래로 고정
-	
-	                //new Notification("New", {body:'message'});
+	                
+	                //new Notification("New", {body:'message'});  
 	                //newExcitingAlerts();
 	            }
 			}
@@ -205,12 +203,6 @@
         ws.onclose = function(e) {
             console.log('Socket is closed. Reconnect will be attempted in 1 second.');
             
-            var obj = {};
-            
-            obj.data = old_name + ":" + e.type;
-            
-            //ws.onmessage(obj);
-            
             ws = null;
             ws = new WebSocket("ws://" + location.host + "/chating");
             
@@ -224,7 +216,6 @@
                 var content = data.data;
 
                 retrunNm.splice(retrunNm.findIndex(function(element) {return element === old_name}), 1);
-                
                 $("#accessId").html(retrunNm.toString());
                 
                 ws.close();
@@ -333,7 +324,7 @@
     });
     
 </script>
-<body>
+<body onbeforeunload="">
     <div id="container" class="container">
         <div>
            <table class="inputTable">
