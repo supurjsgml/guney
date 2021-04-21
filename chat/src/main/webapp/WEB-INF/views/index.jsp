@@ -192,6 +192,8 @@
 	            if(content != null && content.trim() != "" && content.indexOf("open") == -1){
 	                $("#chating").append(p_tag + content.split(":")[1] + "</p></div>");
 	                $("#chating").scrollTop($("#chating")[0].scrollHeight);     //스크롤 맨 아래로 고정
+	                $("#accessTime").html("<p style='font-size: 10px;'>" + currentTime + "</p>");
+	                
 	                //new Notification("New", {body:'message'});  
 	                //newExcitingAlerts();
 	            }
@@ -357,6 +359,7 @@
                 <tr>
                     <th class="google-font">접속 USER : </th>
                     <th class="google-font" id="accessId"></th>
+                    <th class="google-font" id="accessTime" style="padding-top: 8px;"></th>
                 </tr>
             </table>
         </div>
